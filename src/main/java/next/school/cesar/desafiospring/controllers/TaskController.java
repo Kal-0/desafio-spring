@@ -6,44 +6,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import next.school.cesar.desafiospring.entities.ToDoListEntity;
-import next.school.cesar.desafiospring.services.ToDoListService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import next.school.cesar.desafiospring.entities.TaskEntity;
+import next.school.cesar.desafiospring.services.TaskService;
 
 
 @RestController
-@RequestMapping("/todolists")
-public class ToDoListController {
+@RequestMapping("/tasks")
+public class TaskController {
 	@Autowired
-	private ToDoListService service;
+	private TaskService service;
 	
 	 @GetMapping
-	  public List<ToDoListEntity> getAll() {
+	  public List<TaskEntity> getAll() {
 	    return service.findAll();
 	  }
 	 
 	 @GetMapping("/{id}")
-	  public ToDoListEntity getById(@PathVariable Long id) {
+	  public TaskEntity getById(@PathVariable Long id) {
 	    return service.findById(id);
 	  }
 	 
 	 @PostMapping
-	 public ToDoListEntity post(@RequestBody ToDoListEntity entity) {
+	 public TaskEntity post(@RequestBody TaskEntity entity) {
 	 	return service.save(entity);
 	 }
 	 
 	 @PutMapping
-	 public ToDoListEntity put(@RequestBody ToDoListEntity entity) {
+	 public TaskEntity put(@RequestBody TaskEntity entity) {
 		 return service.update(entity);
 	 }
 	 
 	 @DeleteMapping("/{id}")
-	 public String deleteById(@PathVariable Long id) {
+	 public String deleteToDoListById(@PathVariable Long id) {
 		 return service.deleteById(id);
 	 }
 	 

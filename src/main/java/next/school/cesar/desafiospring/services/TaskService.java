@@ -6,38 +6,45 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import next.school.cesar.desafiospring.entities.ToDoListEntity;
-import next.school.cesar.desafiospring.repositories.ToDoListRepository;
+import next.school.cesar.desafiospring.entities.TaskEntity;
+import next.school.cesar.desafiospring.repositories.TaskRepository;
 
 @Service
-public class ToDoListService {
+public class TaskService {
 
 	@Autowired
-	private ToDoListRepository repository;
+	private TaskRepository repository;
 
-	public ToDoListEntity findById(Long id) {
+	public TaskEntity findById(Long id) {
 		return repository.findById(id).orElse(null);
 
 	}
 
-	public List<ToDoListEntity> findAll() {
+	public List<TaskEntity> findAll() {
 		return repository.findAll();
 	}
 
-	public ToDoListEntity save(ToDoListEntity entity) {
+	public TaskEntity save(TaskEntity entity) {
+		entity.setCompleted(false);
 		entity.setCreatedAt(LocalDateTime.now());
 		entity.setUpdatedAt(LocalDateTime.now());
 		return repository.save(entity);
 	}
 
-	public ToDoListEntity update(ToDoListEntity entity) {
-		ToDoListEntity currentEntity = repository.findById(entity.getId()).orElse(null);
+	public TaskEntity update(TaskEntity entity) {
+		TaskEntity currentEntity = repository.findById(entity.getId()).orElse(null);
 
 		if (entity.getName() != null) {
 			currentEntity.setName(entity.getName());
 		}
 		if (entity.getDescription() != null) {
 			currentEntity.setDescription(entity.getDescription());
+		}
+		if (entity.getDueDate() != null) {
+			currentEntity.setDueDate(entity.getDueDate());
+		}
+		if (entity.getCompleted() != null) {
+			currentEntity.setCompleted(entity.getCompleted());
 		}
 
 		currentEntity.setUpdatedAt(LocalDateTime.now());
